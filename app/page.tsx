@@ -6,6 +6,7 @@ import { ServicesSection } from "@/components/services-section"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { ValueTicker } from "@/components/value-ticker"
+import { WhyChooseUsSection } from "@/components/why-choose-us"
 import { WorkGallery } from "@/components/work-gallery"
 
 export default function Page() {
@@ -18,6 +19,7 @@ export default function Page() {
         <ValueTicker />
         <AboutSection />
         <ServicesSection />
+        <WhyChooseUsSection />
         <WorkGallery />
         <ContactSection />
       </main>

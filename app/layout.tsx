@@ -5,6 +5,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { business, images } from "@/lib/site-content"
 import { cn } from "@/lib/utils"
 
 const inter = Inter({
@@ -18,17 +19,34 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(business.siteUrl),
   title:
-    "Aluminium Fabricator in Nairobi, Kenya | Jeffrey Aluminium Fabricators",
+    "KENFAB Aluminium and Interiors | Aluminium & Interior Fabrication in Nairobi",
   description:
-    "Looking for aluminium fabrication in Nairobi, Kenya? Contact Jeffrey Aluminium Fabricators to discuss your aluminium fabrication project and request a quote.",
+    "KENFAB Aluminium and Interiors supplies and installs aluminium windows, doors, facades, railings, and frameless shower cubicles, plus interior fit-outs and light steel fabrication in Nairobi, Kenya.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title:
-      "Aluminium Fabricator in Nairobi, Kenya | Jeffrey Aluminium Fabricators",
+      "KENFAB Aluminium and Interiors | Aluminium & Interior Fabrication in Nairobi",
     description:
-      "Aluminium fabrication in Nairobi, Kenya — call, email, or get in touch to request a quote for your project.",
+      "Bespoke aluminium, interior, and light steel fabrication in Nairobi, Kenya. Windows, doors, facades, railings, shower cubicles, and fit-outs.",
+    url: "/",
+    siteName: business.name,
     type: "website",
-    siteName: "Jeffrey Aluminium Fabricators",
+    locale: "en_KE",
+    images: [
+      {
+        url: images.hero.src,
+        width: images.hero.width,
+        height: images.hero.height,
+        alt: images.hero.alt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 }
 

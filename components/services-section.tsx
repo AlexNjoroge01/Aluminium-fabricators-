@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react"
 
 import { services } from "@/lib/site-content"
-import { cn } from "@/lib/utils"
 
 export function ServicesSection() {
   return (
@@ -22,18 +21,13 @@ export function ServicesSection() {
         </h2>
 
         {/* Catalogue grid: hairline separators, square corners */}
-        <div className="mt-12 grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-6">
+        <div className="mt-12 grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
               <article
                 key={service.title}
-                className={cn(
-                  "flex flex-col bg-background p-6 md:p-8",
-                  // 3 cards on the first row, 2 wider cards on the second.
-                  index < 3 ? "lg:col-span-2" : "lg:col-span-3",
-                  index === services.length - 1 && "sm:col-span-2 sm:mb-0"
-                )}
+                className="flex flex-col bg-background p-6 md:p-8"
               >
                 <div className="flex items-center justify-between text-muted-foreground">
                   <Icon className="size-5" strokeWidth={1.5} aria-hidden />

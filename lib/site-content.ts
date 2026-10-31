@@ -1,5 +1,12 @@
 import type { LucideIcon } from "lucide-react"
-import { AppWindow, DoorOpen, Frame, PanelsTopLeft, Store } from "lucide-react"
+import {
+  AppWindow,
+  Building,
+  DoorOpen,
+  Fence,
+  PanelsTopLeft,
+  ShowerHead,
+} from "lucide-react"
 
 /**
  * Central content configuration for the site.
@@ -7,12 +14,9 @@ import { AppWindow, DoorOpen, Frame, PanelsTopLeft, Store } from "lucide-react"
  * Everything a client might want to change — business details, wordmark
  * lines, navigation, service copy, image paths and alt text — lives here.
  *
- * IMPORTANT (draft content):
- * - The business name and service categories below are candidates drafted
- *   from the brief. Confirm the exact services and any installed/glass
- *   scope with the client before publishing.
- * - No credentials, guarantees, prices, testimonials or hours are claimed
- *   anywhere; do not add them here without client confirmation.
+ * Content below is supplied by the client in companyprofile.md. Keep any
+ * new claim (credentials, guarantees, prices, testimonials, hours) out
+ * until it is confirmed by the client.
  */
 
 export type ImageAsset = {
@@ -22,17 +26,25 @@ export type ImageAsset = {
   height: number
 }
 
-export type WorkImage = ImageAsset & {
-  /** Short, honest caption describing what the image shows. */
-  caption: string
+export type ProjectImage = ImageAsset & {
+  orientation: "landscape" | "portrait"
+}
+
+export type Project = {
+  slug: string
+  title: string
+  scope: string
+  /**
+   * Three supplied photos per project, in filename order (1, 2, 3):
+   * landscape, portrait, landscape.
+   */
+  images: [ProjectImage, ProjectImage, ProjectImage]
 }
 
 export type Service = {
   title: string
   description: string
   icon: LucideIcon
-  /** Optional photo; when absent a neutral designed placeholder is shown. */
-  image?: ImageAsset
 }
 
 /* ------------------------------------------------------------------ */
@@ -40,22 +52,30 @@ export type Service = {
 /* ------------------------------------------------------------------ */
 
 export const business = {
-  name: "Jeffrey Aluminium Fabricators",
-  wordmarkLine: "JEFFREY ALUMINIUM FABRICATORS",
-  type: "Aluminium fabricator",
+  name: "KENFAB Aluminium and Interiors",
+  legalName: "KENFAB Aluminium and Interiors",
+  wordmarkLine: "KENFAB ALUMINIUM AND INTERIORS",
+  wordmarkPrimary: "KENFAB",
+  wordmarkSecondary: "Aluminium & Interiors",
+  type: "Aluminium, interiors and light steel fabrication",
+  foundedYear: 2019,
   location: "Nairobi, Kenya",
-  phoneDisplay: "+254 723 138 122",
-  phoneHref: "tel:+254723138122",
-  email: "jescrivah92@gmail.com",
-  emailHref: "mailto:jescrivah92@gmail.com",
+  address: "GW Cargo, off Old Mombasa Road, Nairobi",
+  phoneDisplay: "+254 703 964 891",
+  phoneHref: "tel:+254703964891",
+  phones: [
+    { display: "+254 703 964 891", href: "tel:+254703964891" },
+    { display: "+254 735 636 494", href: "tel:+254735636494" },
+  ],
+  email: "kenfabaluminium@gmail.com",
+  emailHref: "mailto:kenfabaluminium@gmail.com",
+  websiteDisplay: "www.kenfabaluminium.com",
+  websiteHref: "https://www.kenfabaluminium.com",
   whatsappHref:
-    "https://wa.me/254723138122?text=Hello%2C%20I%20would%20like%20to%20request%20a%20quote%20for%20aluminium%20fabrication.",
-  /**
-   * Set to the final production domain (e.g. "https://example.com") once
-   * confirmed. Canonical URLs, the sitemap and structured-data URLs are
-   * intentionally left unset until then.
-   */
-  siteUrl: "",
+    "https://wa.me/254703964891?text=Hello%20KENFAB%2C%20I%20would%20like%20to%20request%20a%20quote.",
+  registrationNumber: "PVT-JZUGZZLB",
+  pinNumber: "P052157746G",
+  siteUrl: "https://www.kenfabaluminium.com",
 } as const
 
 /* ------------------------------------------------------------------ */
@@ -73,14 +93,11 @@ export const nav = [
 /* Hero copy                                                           */
 /* ------------------------------------------------------------------ */
 
-/** "Aluminium Fabrication in Nairobi, Kenya" is the H1 overline; the
- * headline below it carries the brand voice. */
 export const hero = {
-  h1Overline: "Aluminium Fabrication · Nairobi, Kenya",
-  headline: "Aluminium, crafted with precision.",
-  /** Draft copy — confirm the actual scope (homes/businesses) with client. */
+  h1Overline: "Aluminium & interiors · Nairobi, Kenya",
+  headline: "Fabricated with precision. Built to last.",
   supportingCopy:
-    "Aluminium fabrication solutions for homes, businesses, and spaces that demand a clean, lasting finish.",
+    "KENFAB designs and delivers bespoke aluminium, interior, and light steel solutions for homes, businesses, and institutions — from windows and facades to railings and shower cubicles.",
   primaryCta: { label: "Request a quote", href: "#contact" },
   secondaryCta: { label: "Explore our services", href: "#services" },
 } as const
@@ -90,9 +107,10 @@ export const hero = {
 /* ------------------------------------------------------------------ */
 
 export const tickerItems = [
-  "Custom aluminium fabrication",
-  "Serving Nairobi, Kenya",
-  "Contact us for a quote",
+  "Aluminium · Interiors · Light steel",
+  "Founded in 2019",
+  "Bespoke solutions",
+  "Nairobi, Kenya",
 ] as const
 
 /* ------------------------------------------------------------------ */
@@ -100,94 +118,267 @@ export const tickerItems = [
 /* ------------------------------------------------------------------ */
 
 export const about = {
-  eyebrow: "About",
-  heading: "Built around your space.",
-  /** Neutral introduction — no invented history or credentials. */
-  body: "Jeffrey Aluminium Fabricators is an aluminium fabrication business based in Nairobi, Kenya. We keep the work simple and disciplined: understand the space, fabricate to fit it, and finish the job cleanly.",
-  /** Factual, low-key value points — easy to adjust with the client. */
-  valuePoints: [
-    {
-      title: "Attention to detail",
-      description: "Measured and fabricated to fit the opening.",
-    },
-    {
-      title: "Practical solutions",
-      description: "Fabrication that suits how the space is actually used.",
-    },
-    {
-      title: "A clean finish",
-      description: "Neat aluminium work with a tidy, lasting appearance.",
-    },
+  eyebrow: "About us",
+  heading: "Transforming Kenyan spaces since 2019.",
+  intro: [
+    "KENFAB Aluminium and Interiors was founded in 2019 as an aluminium, interiors, and light steel fabrication company. We have since become a reputable player in transforming the Kenyan industry.",
+    "Our executive team is led by three founders whose wealth of experience across diverse roles in the construction industry has driven the company's growth. That experience covers design, implementation, and project management in building and construction.",
+    "We provide bespoke solutions tailored to each customer, serving everyone from small businesses to major enterprises. With the resources, capacity, and experience to meet current and future requirements, our entrepreneurial spirit and diverse, talented workforce keep us firmly committed to sound business practice and our customers' success.",
   ],
+  facts: [
+    { label: "Founded", value: "2019" },
+    { label: "Registration no.", value: "PVT-JZUGZZLB" },
+    { label: "PIN", value: "P052157746G" },
+  ],
+  vision: {
+    label: "Vision",
+    body: "To be a regional player in the provision of innovative and bespoke services and solutions in the fast, competitive market.",
+  },
+  mission: {
+    label: "Mission",
+    body: "We strive to deliver building services and solutions beyond our customers' expectations while earning reasonable returns to sustain our welfare and environmental surroundings.",
+  },
 } as const
 
 /* ------------------------------------------------------------------ */
-/* Services (candidate categories — confirm before publishing)         */
+/* Services                                                            */
 /* ------------------------------------------------------------------ */
 
 export const services = [
   {
     title: "Aluminium windows",
     description:
-      "Aluminium windows fabricated to measure, with a neat frame finish that suits the opening.",
+      "Supply and installation of aluminium windows, fabricated to fit each opening and finished to specification.",
     icon: AppWindow,
   },
   {
     title: "Aluminium doors",
     description:
-      "Aluminium doors fabricated to fit their openings, with a clean and durable finish.",
+      "Supply and installation of aluminium doors for residential and commercial projects, made to measure.",
     icon: DoorOpen,
   },
   {
-    title: "Shopfronts",
+    title: "Facades & glazing",
     description:
-      "Aluminium shopfront frames fabricated for commercial spaces, built to the required dimensions.",
-    icon: Store,
-  },
-  {
-    title: "Office partitions",
-    description:
-      "Aluminium partition frames that divide workspaces cleanly and practically.",
+      "Aluminium facades and the glazing of windows and doors, delivered as part of the building envelope.",
     icon: PanelsTopLeft,
   },
   {
-    title: "Custom fabrication",
+    title: "Aluminium railings",
     description:
-      "Custom aluminium frames and related fabrication work, made to fit the brief.",
-    icon: Frame,
+      "Fabrication and installation of aluminium railings, designed and built to suit each project.",
+    icon: Fence,
+  },
+  {
+    title: "Frameless shower cubicles",
+    description:
+      "Frameless shower cubicle installation with clean lines, precise fittings, and a neat finish.",
+    icon: ShowerHead,
+  },
+  {
+    title: "Interiors & light steel",
+    description:
+      "Bespoke interior fit-outs and light steel fabrication, tailored to the design and function of your space.",
+    icon: Building,
   },
 ] as const satisfies readonly Service[]
 
 /* ------------------------------------------------------------------ */
-/* Work gallery (client-supplied photos, honest captions)              */
+/* Why choose us                                                       */
+/* ------------------------------------------------------------------ */
+
+export const whyChooseUs = {
+  eyebrow: "Why choose us",
+  heading: "Precision in every part of the process.",
+  intro:
+    "From the first measurement to the final installation, our work is guided by accuracy, quality materials, and a clear commitment to the client.",
+  items: [
+    {
+      title: "Precision engineering",
+      description:
+        "Every product is meticulously crafted to the highest standards of accuracy, consistency, and industry grade.",
+    },
+    {
+      title: "Quality materials",
+      description:
+        "We use high-grade aluminium built for strength, durability, and long-term performance.",
+    },
+    {
+      title: "Custom fabrication",
+      description:
+        "Tailored solutions that match your exact design, function, and project requirements.",
+    },
+    {
+      title: "Modern technology",
+      description:
+        "Advanced machinery and innovative techniques ensure a flawless finish.",
+    },
+    {
+      title: "Reliable timelines",
+      description:
+        "Fast turnaround without compromising on workmanship or detail.",
+    },
+    {
+      title: "Client-focused service",
+      description:
+        "Clear communication, project transparency, and dependable support from start to finish.",
+    },
+  ],
+} as const
+
+/* ------------------------------------------------------------------ */
+/* Portfolio (client-supplied project photos)                          */
 /* ------------------------------------------------------------------ */
 
 export const work = {
-  eyebrow: "Selected work",
-  heading: "Made to fit. Built to work.",
-  images: [
+  eyebrow: "Portfolio",
+  heading: "Selected projects.",
+  intro:
+    "Aluminium, glazing, and interior work delivered for clients across Kenya — from international airports to private residences.",
+  projects: [
     {
-      src: "/images/aluminium/aluminium-welding-panel.png",
-      alt: "Welder wearing a helmet and gloves welding a metal panel in a workshop",
-      width: 735,
-      height: 409,
-      caption: "Fabrication work",
+      slug: "kisumu",
+      title: "Kisumu International Airport",
+      scope: "Supply and installation of aluminium windows and facades.",
+      images: [
+        {
+          src: "/kisumu1.png",
+          alt: "Aluminium windows and facades installed at Kisumu International Airport, view 1",
+          width: 398,
+          height: 400,
+          orientation: "landscape",
+        },
+        {
+          src: "/kisumu2.png",
+          alt: "Aluminium windows and facades installed at Kisumu International Airport, view 2",
+          width: 326,
+          height: 497,
+          orientation: "portrait",
+        },
+        {
+          src: "/kisumu3.png",
+          alt: "Aluminium windows and facades installed at Kisumu International Airport, view 3",
+          width: 368,
+          height: 371,
+          orientation: "landscape",
+        },
+      ],
     },
     {
-      src: "/images/aluminium/aluminium-fabrication-machinery.png",
-      alt: "Industrial aluminium fabrication machinery operating on a component",
-      width: 629,
-      height: 474,
-      caption: "Fabrication machinery",
+      slug: "kajiado",
+      title: "Kajiado Hybrid",
+      scope:
+        "Supply and installation of aluminium windows, doors, and railings.",
+      images: [
+        {
+          src: "/kajiado1.png",
+          alt: "Aluminium windows, doors, and railings at Kajiado Hybrid, view 1",
+          width: 372,
+          height: 370,
+          orientation: "landscape",
+        },
+        {
+          src: "/kajiado2.png",
+          alt: "Aluminium windows, doors, and railings at Kajiado Hybrid, view 2",
+          width: 326,
+          height: 539,
+          orientation: "portrait",
+        },
+        {
+          src: "/kajiado3.png",
+          alt: "Aluminium windows, doors, and railings at Kajiado Hybrid, view 3",
+          width: 375,
+          height: 364,
+          orientation: "landscape",
+        },
+      ],
     },
     {
-      src: "/images/aluminium/aluminium-cnc-punching.png",
-      alt: "CNC punching machine working on a perforated aluminium sheet",
-      width: 545,
-      height: 535,
-      caption: "Precision machining",
+      slug: "runda",
+      title: "Runda Residence",
+      scope:
+        "Supply and installation of aluminium windows, doors, and railings.",
+      images: [
+        {
+          src: "/runda1.png",
+          alt: "Aluminium windows, doors, and railings at Runda Residence, view 1",
+          width: 372,
+          height: 373,
+          orientation: "landscape",
+        },
+        {
+          src: "/runda2.png",
+          alt: "Aluminium windows, doors, and railings at Runda Residence, view 2",
+          width: 333,
+          height: 533,
+          orientation: "portrait",
+        },
+        {
+          src: "/runda3.png",
+          alt: "Aluminium windows, doors, and railings at Runda Residence, view 3",
+          width: 374,
+          height: 371,
+          orientation: "landscape",
+        },
+      ],
     },
-  ] satisfies WorkImage[],
+    {
+      slug: "kijani",
+      title: "Kijani Ridge Residence",
+      scope: "Glazing of windows, doors, and railings.",
+      images: [
+        {
+          src: "/kijani1.png",
+          alt: "Glazing of windows, doors, and railings at Kijani Ridge Residence, view 1",
+          width: 374,
+          height: 383,
+          orientation: "landscape",
+        },
+        {
+          src: "/kijani2.png",
+          alt: "Glazing of windows, doors, and railings at Kijani Ridge Residence, view 2",
+          width: 329,
+          height: 507,
+          orientation: "portrait",
+        },
+        {
+          src: "/kijani3.png",
+          alt: "Glazing of windows, doors, and railings at Kijani Ridge Residence, view 3",
+          width: 371,
+          height: 371,
+          orientation: "landscape",
+        },
+      ],
+    },
+    {
+      slug: "shower",
+      title: "Shower Cubicles",
+      scope: "Frameless shower cubicle installation.",
+      images: [
+        {
+          src: "/shower1.png",
+          alt: "Frameless shower cubicle installation, view 1",
+          width: 363,
+          height: 368,
+          orientation: "landscape",
+        },
+        {
+          src: "/shower2.png",
+          alt: "Frameless shower cubicle installation, view 2",
+          width: 327,
+          height: 530,
+          orientation: "portrait",
+        },
+        {
+          src: "/shower3.png",
+          alt: "Frameless shower cubicle installation, view 3",
+          width: 369,
+          height: 363,
+          orientation: "landscape",
+        },
+      ],
+    },
+  ] satisfies readonly Project[],
 }
 
 /* ------------------------------------------------------------------ */

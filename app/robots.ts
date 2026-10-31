@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next"
 
+import { business } from "@/lib/site-content"
+
 export default function robots(): MetadataRoute.Robots {
   // Allow all legitimate crawlers, including AI crawlers.
   return {
@@ -7,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    // Add "sitemap" once the production domain is confirmed in
-    // lib/site-content.ts.
+    sitemap: `${business.siteUrl}/sitemap.xml`,
   }
 }

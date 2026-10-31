@@ -1,4 +1,4 @@
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react"
+import { Globe, Mail, MapPin, MessageCircle, Phone } from "lucide-react"
 
 import { CopyContactButton } from "@/components/copy-contact-button"
 import { business } from "@/lib/site-content"
@@ -29,7 +29,8 @@ export function ContactSection() {
             </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-white/70">
               Tell us what you need fabricated and get in touch to discuss your
-              project.
+              project. We work with clients from small businesses to major
+              enterprises.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -67,7 +68,7 @@ export function ContactSection() {
 
             <div className="mt-10">
               <span className="inline-flex border border-white/25 px-2.5 py-1 text-[10px] font-medium tracking-[0.25em] text-white/70 uppercase">
-                Nairobi, Kenya
+                {business.location}
               </span>
             </div>
           </div>
@@ -75,22 +76,27 @@ export function ContactSection() {
           {/* Direct contact details */}
           <div aria-label="Contact details">
             <ul className="divide-y divide-white/10 border-y border-white/10">
-              <li className="flex items-center justify-between gap-4 py-4">
-                <a
-                  href={business.phoneHref}
-                  className="flex items-center gap-3 text-sm underline-offset-4 hover:underline md:text-base"
+              {business.phones.map((phone) => (
+                <li
+                  key={phone.href}
+                  className="flex items-center justify-between gap-4 py-4"
                 >
-                  <Phone
-                    className="size-4 shrink-0 text-white/60"
-                    aria-hidden
+                  <a
+                    href={phone.href}
+                    className="flex items-center gap-3 text-sm underline-offset-4 hover:underline md:text-base"
+                  >
+                    <Phone
+                      className="size-4 shrink-0 text-white/60"
+                      aria-hidden
+                    />
+                    {phone.display}
+                  </a>
+                  <CopyContactButton
+                    value={phone.display}
+                    label="Phone number"
                   />
-                  {business.phoneDisplay}
-                </a>
-                <CopyContactButton
-                  value={business.phoneDisplay}
-                  label="Phone number"
-                />
-              </li>
+                </li>
+              ))}
               <li className="flex items-center justify-between gap-4 py-4">
                 <a
                   href={business.emailHref}
@@ -106,7 +112,25 @@ export function ContactSection() {
               </li>
               <li className="flex items-center gap-3 py-4 text-sm text-white/70 md:text-base">
                 <MapPin className="size-4 shrink-0 text-white/60" aria-hidden />
-                Service area: {business.location}
+                {business.address}
+              </li>
+              <li className="flex items-center justify-between gap-4 py-4">
+                <a
+                  href={business.websiteHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm underline-offset-4 hover:underline md:text-base"
+                >
+                  <Globe
+                    className="size-4 shrink-0 text-white/60"
+                    aria-hidden
+                  />
+                  {business.websiteDisplay}
+                </a>
+                <CopyContactButton
+                  value={business.websiteDisplay}
+                  label="Website"
+                />
               </li>
             </ul>
           </div>
