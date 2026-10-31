@@ -86,6 +86,7 @@ export const nav = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Our Work", href: "#work" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ] as const
 
@@ -222,6 +223,64 @@ export const whyChooseUs = {
       title: "Client-focused service",
       description:
         "Clear communication, project transparency, and dependable support from start to finish.",
+    },
+  ],
+} as const
+
+/* ------------------------------------------------------------------ */
+/* FAQ                                                                 */
+/* ------------------------------------------------------------------ */
+
+export const faq = {
+  eyebrow: "FAQ",
+  heading: "Questions, answered.",
+  intro:
+    "A few things clients often ask before starting a project. If your question isn't here, call, WhatsApp, or send us a message.",
+  items: [
+    {
+      question: "What does KENFAB do?",
+      answer:
+        "KENFAB Aluminium and Interiors designs and delivers bespoke aluminium, interior, and light steel solutions. Our work includes aluminium windows, doors, facades, glazing, railings, frameless shower cubicles, interior fit-outs, and light steel fabrication.",
+    },
+    {
+      question: "Do you supply and install?",
+      answer:
+        "Yes. Our project scopes cover the supply and installation of aluminium windows, doors, facades, and railings, as well as glazing and frameless shower cubicle installation.",
+    },
+    {
+      question: "Where are you based and where do you work?",
+      answer:
+        "We are based at GW Cargo, off Old Mombasa Road, Nairobi, and take on projects across Kenya. Our portfolio includes work in Nairobi, Kajiado, and Kisumu.",
+    },
+    {
+      question: "What types of projects do you take on?",
+      answer:
+        "We work on residential, commercial, and institutional projects, serving clients from small businesses to major enterprises. Every solution is tailored to the design and function of the space.",
+    },
+    {
+      question: "Can you work to a custom design?",
+      answer:
+        "Yes. We provide bespoke solutions matched to each customer's design, function, and project requirements. Our team's experience covers design, implementation, and project management in building and construction.",
+    },
+    {
+      question: "Is KENFAB a registered company?",
+      answer:
+        "Yes. KENFAB Aluminium and Interiors is a registered company. Our registration number is PVT-JZUGZZLB and our KRA PIN is P052157746G.",
+    },
+    {
+      question: "Do you install frameless shower cubicles?",
+      answer:
+        "Yes — frameless shower cubicle installation is one of our services, alongside aluminium windows, doors, facades, glazing, railings, interiors, and light steel fabrication.",
+    },
+    {
+      question: "How do I get a quote?",
+      answer:
+        "Call or WhatsApp us on +254 703 964 891 or +254 735 636 494, email kenfabaluminium@gmail.com, or fill in the contact form below. Tell us what you need, where the project is, and any timing you have in mind.",
+    },
+    {
+      question: "How long does a project take?",
+      answer:
+        "Timelines depend on the scope, materials, and site requirements. Get in touch with your project details and we'll discuss a schedule with you.",
     },
   ],
 } as const

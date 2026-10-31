@@ -1,11 +1,12 @@
 import { Globe, Mail, MapPin, MessageCircle, Phone } from "lucide-react"
 
+import { ContactForm } from "@/components/contact-form"
 import { CopyContactButton } from "@/components/copy-contact-button"
 import { business } from "@/lib/site-content"
 import { cn } from "@/lib/utils"
 
 const ctaBase =
-  "inline-flex h-12 w-full items-center justify-center gap-2 text-sm font-medium transition-colors sm:h-11 sm:w-auto sm:px-7"
+  "inline-flex h-12 w-full items-center justify-center gap-2 text-sm font-medium transition-colors sm:h-11 sm:w-auto sm:px-6"
 
 export function ContactSection() {
   return (
@@ -15,25 +16,27 @@ export function ContactSection() {
       className="bg-[#171717] py-16 text-white md:py-24"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Copy */}
-          <div>
-            <p className="text-[11px] font-semibold tracking-[0.3em] text-white/50 uppercase">
-              Contact
-            </p>
-            <h2
-              id="contact-heading"
-              className="mt-4 font-heading text-3xl font-extrabold tracking-tight md:text-4xl"
-            >
-              Have a project in mind?
-            </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-white/70">
-              Tell us what you need fabricated and get in touch to discuss your
-              project. We work with clients from small businesses to major
-              enterprises.
-            </p>
+        <div className="max-w-2xl">
+          <p className="text-[11px] font-semibold tracking-[0.3em] text-white/50 uppercase">
+            Contact
+          </p>
+          <h2
+            id="contact-heading"
+            className="mt-4 font-heading text-3xl font-extrabold tracking-tight md:text-4xl"
+          >
+            Have a project in mind?
+          </h2>
+          <p className="mt-6 text-base leading-relaxed text-white/70">
+            Tell us what you need fabricated and get in touch to discuss your
+            project. Use the form, call us, or send a WhatsApp message —
+            whichever is easiest.
+          </p>
+        </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-12 grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          {/* Direct contact details */}
+          <div className="order-2 lg:order-1 lg:col-span-5">
+            <div className="flex flex-col gap-3 sm:flex-row">
               <a
                 href={business.phoneHref}
                 className={cn(
@@ -45,37 +48,26 @@ export function ContactSection() {
                 Call now
               </a>
               <a
-                href={business.emailHref}
+                href={business.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(
                   ctaBase,
                   "border border-white/30 text-white hover:bg-white/10"
                 )}
               >
-                <Mail className="size-4" aria-hidden />
-                Email us
+                <MessageCircle className="size-4" aria-hidden />
+                WhatsApp us
               </a>
             </div>
 
-            <a
-              href={business.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 self-start text-sm text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+            <p className="mt-10 text-[11px] font-semibold tracking-[0.3em] text-white/50 uppercase">
+              Direct contacts
+            </p>
+            <ul
+              aria-label="Contact details"
+              className="mt-4 divide-y divide-white/10 border-y border-white/10"
             >
-              <MessageCircle className="size-3.5" aria-hidden />
-              Message us on WhatsApp
-            </a>
-
-            <div className="mt-10">
-              <span className="inline-flex border border-white/25 px-2.5 py-1 text-[10px] font-medium tracking-[0.25em] text-white/70 uppercase">
-                {business.location}
-              </span>
-            </div>
-          </div>
-
-          {/* Direct contact details */}
-          <div aria-label="Contact details">
-            <ul className="divide-y divide-white/10 border-y border-white/10">
               {business.phones.map((phone) => (
                 <li
                   key={phone.href}
@@ -133,6 +125,19 @@ export function ContactSection() {
                 />
               </li>
             </ul>
+          </div>
+
+          {/* Enquiry form */}
+          <div className="order-1 lg:order-2 lg:col-span-7">
+            <div className="bg-white p-6 text-foreground md:p-8">
+              <h3 className="font-heading text-xl font-extrabold tracking-tight">
+                Send us a message
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Tell us about your project and we&apos;ll come back to you.
+              </p>
+              <ContactForm />
+            </div>
           </div>
         </div>
       </div>
